@@ -1,0 +1,13 @@
+<apex:page >
+    <script type="text/javascript">
+        "use strict";
+        
+        var app = angular.module("Controllers", ["Services", "ui.date"]);
+    
+        // PardotApiPreviewAppController
+        app.controller("PardotApiPreviewAppController", ["$scope", "$sce", "$routeParams", "PardotApiPreviewAppServices", function($scope, $sce, $routeParams, services) {
+            // 初期処理
+            services.init($scope);
+        }]);
+    </script>
+</apex:page>

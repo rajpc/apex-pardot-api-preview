@@ -1,0 +1,38 @@
+<apex:page >
+    <script type="text/javascript">
+        var app = angular.module("Services", []);
+
+        // PardotApiPreviewAppServices
+        app.factory("PardotApiPreviewAppServices", ["$rootScope", function($rootScope) {
+
+            // 初期処理
+            function init(scope) {
+                // Apex処理
+                PardotApiPreviewController.init(
+                    function(result, event) {
+                        if(event.status) {
+                            // 結果をセット
+                            scope.wrapper = result;
+                            // エラー判定
+                            if (scope.wrapper.errorMessage) {
+                                scope.errorMessage = scope.wrapper.errorMessage;
+                            }
+                        } else {
+                            // エラーメッセージ
+                            scope.errorMessage = event.message;
+                        }
+                        // Viewに反映
+                        $rootScope.$apply();
+                    },
+                    { buffer: true, escape: false, timeout: 30000 }
+                );
+            }
+
+            return {
+                init: function(scope, contactId) {
+                    return init(scope, contactId);
+                }
+            };
+        }]);
+    </script>
+</apex:page>

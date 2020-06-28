@@ -1,0 +1,130 @@
+<apex:page showHeader="false" standardStylesheets="false">
+    <div xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="slds-p-around_x-small">
+        <!-- ヘッダー -->
+        <header class="slds-page-header slds-m-bottom_small">
+            <div class="slds-grid">
+                <div class="slds-col slds-has-flexi-truncate">
+                    <div class="slds-media slds-no-space slds-grow">
+                        <div class="slds-media__figure">
+                            <svg class="slds-icon slds-icon-standard-campaign" aria-hidden="true">
+                                <use xlink:href="{!URLFOR($Asset.SLDS, '/assets/icons/standard-sprite/svg/symbols.svg#campaign')}"></use>
+                            </svg>
+                        </div>
+                        <div class="slds-media__body">
+                            <p class="slds-text-title_caps slds-line-height_reset">
+                                <apex:outputText value="Salesforce Developers" />
+                            </p>
+                            <h1 class="slds-page-header__title slds-m-right_small slds-align-middle slds-truncate">
+                                <apex:outputText value="Pardot API プレビュー" />
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- コンテンツ -->
+        <div>
+            <!-- エラーメッセージ -->
+            <div class="slds-box slds-theme_error slds-m-top_small slds-m-bottom_small" ng-show="!!errorMessage.length">
+                <p><span ng-bind="errorMessage" class="textarea-view"></span></p>
+            </div>
+            <div>
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title slds-theme_shade">
+                        <span class="slds-truncate slds-p-horizontal_small">APIキー取得リクエスト</span>
+                    </h3>
+                    <div class="slds-box slds-m-top_small">
+                        <article class="slds-tile">
+                            <h3 class="slds-tile__title slds-truncate">
+                                <a>HTTP REQUEST RESULT</a>
+                            </h3>
+                            <div class="slds-tile__detail">
+                                <dl class="slds-list_horizontal slds-wrap">
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate">status:</dt>
+                                    <dd class="slds-item_detail slds-truncate">
+                                        <span ng-bind="wrapper.apiKeyField.status"></span>
+                                    </dd>
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate">statusCode:</dt>
+                                    <dd class="slds-item_detail slds-truncate">
+                                        <span ng-bind="wrapper.apiKeyField.statusCode"></span>
+                                    </dd>
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate">apiKey:</dt>
+                                    <dd class="slds-item_detail slds-truncate">
+                                        <span ng-bind="wrapper.apiKeyField.apiKey"></span>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title slds-theme_shade">
+                        <span class="slds-truncate slds-p-horizontal_small">Pardotキャンペーンリスト取得リクエスト</span>
+                    </h3>
+                    <div class="slds-box slds-m-top_small">
+                        <article class="slds-tile">
+                            <h3 class="slds-tile__title slds-truncate">
+                                <a>HTTP REQUEST RESULT</a>
+                            </h3>
+                            <div class="slds-tile__detail">
+                                <dl class="slds-list_horizontal slds-wrap">
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate">status:</dt>
+                                    <dd class="slds-item_detail slds-truncate">
+                                        <span ng-bind="wrapper.apiCampaignField.status"></span>
+                                    </dd>
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate">statusCode:</dt>
+                                    <dd class="slds-item_detail slds-truncate">
+                                        <span ng-bind="wrapper.apiCampaignField.statusCode"></span>
+                                    </dd>
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate">totalResults:</dt>
+                                    <dd class="slds-item_detail slds-truncate">
+                                        <span ng-bind="wrapper.apiCampaignField.totalResults"></span>
+                                    </dd> 
+                                </dl>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="slds-m-top_small">
+                        <h1>
+                            件数：<span ng-bind="wrapper.apiCampaignField.campaignList.length" />
+                        </h1>
+                        <table class="slds-table slds-table_bordered" cellpadding="0" cellspacing="0" border="0">
+                            <thead>
+                                <tr class="slds-text-heading_label">
+                                    <th>
+                                        <apex:outputText value="Index" />
+                                    </th>
+                                    <th>
+                                        <apex:outputText value="ID" />
+                                    </th>
+                                    <th>
+                                        <apex:outputText value="Name" />
+                                    </th>
+                                    <th>
+                                        <apex:outputText value="CrmFId" />
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in wrapper.apiCampaignField.campaignList" >
+                                    <td>
+                                        <span ng-bind="$index" />
+                                    </td>
+                                    <td>
+                                        <span ng-bind="item.id" />
+                                    </td>
+                                    <td>
+                                        <span ng-bind="item.name" />
+                                    </td>
+                                    <td>
+                                        <span ng-bind="item.crmFId" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</apex:page>
